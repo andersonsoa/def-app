@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { links } from "@/lib/links";
+import { Nav } from "@/components/Nav";
+import { Box } from "lucide-react";
 
 export default function DashboardLayout({
   children,
@@ -11,40 +12,32 @@ export default function DashboardLayout({
   return (
     <section className="h-screen w-full flex gap-4 p-6">
       <aside className="w-full max-w-[280px]">
-        <ul className="space-y-2">
-          {links.map((link) => (
-            <li key={link.href} className="bg-zinc-100">
-              {link.href ? (
-                <Link href={link.href}>
-                  <div className="flex gap-2 items-center px-2 py-1 rounded">
-                    <link.Icon className="w-4" />
-                    <span className="text-sm">{link.name}</span>
-                  </div>
-                </Link>
-              ) : (
-                <>
-                  <div className="flex gap-2 items-center px-2 py-1 rounded">
-                    <link.Icon className="w-4" />
-                    <span className="text-sm">{link.name}</span>
-                  </div>
-
-                  <ul>
-                    {link.children?.map((child) => (
-                      <li key={child.href}>
-                        <Link href={child.href}>
-                          <div className="flex gap-2 items-center px-2 ml-4 py-1 rounded">
-                            <child.Icon className="w-4" />
-                            <span className="text-sm">{child.name}</span>
-                          </div>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
-            </li>
-          ))}
-        </ul>
+        <Nav.Root>
+          {links.map((link) =>
+            link.hasChildren ? (
+              <Nav.SubmenuRoot key={link.name}>
+                <Nav.SubmenuButton icon={link.Icon}>
+                  {link.name}
+                </Nav.SubmenuButton>
+                <Nav.SubmenuContent>
+                  {link.children.map((subLink) => (
+                    <Nav.Link
+                      key={subLink.name}
+                      icon={subLink.Icon}
+                      href={subLink.href}
+                    >
+                      {subLink.name}
+                    </Nav.Link>
+                  ))}
+                </Nav.SubmenuContent>
+              </Nav.SubmenuRoot>
+            ) : (
+              <Nav.Link key={link.name} icon={link.Icon} href={link.href}>
+                {link.name}
+              </Nav.Link>
+            ),
+          )}
+        </Nav.Root>
       </aside>
 
       <main>{children}</main>

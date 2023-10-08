@@ -1,5 +1,4 @@
 import { LoginContainer } from "@/components/LoginContainer";
-import { Users } from "@/components/Users";
 
 export default function Login() {
   return (
