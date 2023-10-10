@@ -1,5 +1,5 @@
+import { LoginForm } from "@/app/(auth)/login/components/LoginForm";
 import { LoginContainer } from "@/components/LoginContainer";
-import { LoginForm } from "@/app/(auth)/components/LoginForm";
 
 export default function Login() {
   return (

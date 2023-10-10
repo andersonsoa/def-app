@@ -13,7 +13,7 @@ export default function DashboardLayout({
       <aside className="w-full max-w-[280px]">
         <ul className="space-y-2">
           {links.map((link) => (
-            <li key={link.href} className="bg-zinc-100">
+            <li key={link.id} className="bg-zinc-100">
               {link.href ? (
                 <Link href={link.href}>
                   <div className="flex gap-2 items-center px-2 py-1 rounded">
@@ -30,7 +30,7 @@ export default function DashboardLayout({
 
                   <ul>
                     {link.children?.map((child) => (
-                      <li key={child.href}>
+                      <li key={child.id}>
                         <Link href={child.href}>
                           <div className="flex gap-2 items-center px-2 ml-4 py-1 rounded">
                             <child.Icon className="w-4" />
