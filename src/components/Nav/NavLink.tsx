@@ -12,7 +12,7 @@ export function NavLink({ children, icon: Icon, ...rest }: NavLinkProps) {
   return (
     <Link
       className={
-        "flex items-center gap-4 text-zinc-600 p-2 rounded hover:text-blue-400 transition-all w-full border"
+        "flex items-center gap-4 text-zinc-600 p-2 rounded hover:text-blue-400 transition-all w-full"
       }
       {...rest}
     >
