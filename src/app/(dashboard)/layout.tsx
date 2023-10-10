@@ -2,7 +2,6 @@
 
 import { links } from "@/lib/links";
 import { Nav } from "@/components/Nav";
-import { Box } from "lucide-react";
 
 export default function DashboardLayout({
   children,
@@ -16,9 +15,7 @@ export default function DashboardLayout({
           {links.map((link) =>
             link.hasChildren ? (
               <Nav.SubmenuRoot key={link.name}>
-                <Nav.SubmenuButton icon={link.Icon}>
-                  {link.name}
-                </Nav.SubmenuButton>
+                <Nav.SubmenuButton text={link.name} icon={link.Icon} />
                 <Nav.SubmenuContent>
                   {link.children.map((subLink) => (
                     <Nav.Link

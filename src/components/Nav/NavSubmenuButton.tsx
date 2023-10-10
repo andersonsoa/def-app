@@ -18,7 +18,7 @@ export function NavSubmenuButton({
   return (
     <button
       onClick={toggle}
-      className="flex items-center gap-4 dark:text-zinc-300 text-zinc-600 p-2 rounded hover:text-blue-400 hover:dark:text-blue-400 transition-all w-full"
+      className="flex items-center gap-4 text-zinc-600 p-2 rounded hover:text-blue-400 transition-all w-full"
       {...rest}
     >
       <Icon className="text-xl" />
