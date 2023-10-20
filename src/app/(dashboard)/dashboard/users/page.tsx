@@ -1,9 +1,10 @@
-import { Users } from "@/components/Users";
+import { CreateUserForm } from "@/app/(dashboard)/dashboard/users/create-user-form";
+import { PageContainer } from "@/components/PageContainer";
 
 export default function UsersPage() {
   return (
-    <div>
-      <Users />
-    </div>
+    <PageContainer>
+      <CreateUserForm />
+    </PageContainer>
   );
 }
