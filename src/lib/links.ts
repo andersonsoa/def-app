@@ -1,4 +1,4 @@
-import { Boxes, LucideIcon, User, Box, Truck } from "lucide-react";
+import { Boxes, LucideIcon, User, Box, Truck, Cog } from "lucide-react";
 
 type NavItemWithSub = {
   hasChildren: true;
@@ -22,12 +22,6 @@ type Links = NavItemWithSub | NavItemWithoutSub;
 
 export const links: Links[] = [
   {
-    hasChildren: false,
-    name: "Usuários",
-    href: "/dashboard/users",
-    Icon: User,
-  },
-  {
     hasChildren: true,
     name: "Patrimônio",
     Icon: Truck,
@@ -41,6 +35,18 @@ export const links: Links[] = [
         name: "Inventário",
         href: "/dashboard/patrimonio/inventario",
         Icon: Box,
+      },
+    ],
+  },
+  {
+    hasChildren: true,
+    name: "Configurações",
+    Icon: Cog,
+    children: [
+      {
+        name: "Usuários",
+        href: "/dashboard/users",
+        Icon: User,
       },
     ],
   },
