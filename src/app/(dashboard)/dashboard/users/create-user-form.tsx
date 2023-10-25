@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { Input } from "@/components/Input";
+import { Select } from "@/components/Select";
 
 const schema = z.object({
   email: z.string().email("Email incorreto"),
@@ -37,6 +38,22 @@ export function CreateUserForm() {
         type="password"
         errorMessage={errors?.password?.message}
         {...register("password")}
+      />
+      <Select
+        label="Perfil"
+        options={[
+          {
+            value: 1,
+            text: "Administrador",
+            sigla: "ADM",
+          },
+          {
+            value: 2,
+            text: "Servidor Efetivo",
+            sigla: "SE",
+          },
+        ]}
+        fieldLabel="text"
       />
 
       <button>Salvar</button>
