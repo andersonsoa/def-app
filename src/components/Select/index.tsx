@@ -1,3 +1,4 @@
+import { ChangeEvent, forwardRef } from "react";
 import { tv } from "tailwind-variants";
 
 type DefaultOption = { value: number; text: string };
@@ -6,9 +7,9 @@ interface Props<TData> {
   options: TData[];
   value?: TData;
   label: string;
-  fieldLabel: keyof TData;
   errorMessage?: string;
   render?: (value: TData) => React.ReactNode;
+  onChange?: (v: TData) => void;
 }
 
 export function Select<T extends DefaultOption>(props: Props<T>) {
@@ -37,6 +38,16 @@ export function Select<T extends DefaultOption>(props: Props<T>) {
       },
     },
   });
+
+  function handleChange(event: ChangeEvent<HTMLSelectElement>) {
+    if (!props.onChange) return;
+
+    const value = event.currentTarget.value;
+    const option = props.options.find((opt) => opt.value === +value);
+
+    if (option) props.onChange(option);
+  }
+
   return (
     <div>
       <label className={containerVariant()}>
@@ -45,9 +56,14 @@ export function Select<T extends DefaultOption>(props: Props<T>) {
             {props.label}
           </span>
         </span>
-        <select className="outline-none bg-transparent" placeholder="Hum">
+        <select
+          className="outline-none bg-transparent"
+          placeholder="Hum"
+          value={props.value?.value}
+          onChange={handleChange}
+        >
           <option value="" className="text-zinc-900">
-            Selecione um Perfil
+            Selecione...
           </option>
           {props.options.map((option) =>
             props.render ? (
