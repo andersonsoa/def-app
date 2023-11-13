@@ -1,4 +1,12 @@
-import { Boxes, LucideIcon, User, Box, Truck, Cog } from "lucide-react";
+import {
+  Boxes,
+  LucideIcon,
+  User,
+  Box,
+  Truck,
+  CircleDashed,
+  Cog,
+} from "lucide-react";
 
 type NavItemWithSub = {
   hasChildren: true;
@@ -49,5 +57,11 @@ export const links: Links[] = [
         Icon: User,
       },
     ],
+  },
+  {
+    hasChildren: false,
+    href: "/dashboard/processar",
+    name: "Processar",
+    Icon: CircleDashed,
   },
 ];

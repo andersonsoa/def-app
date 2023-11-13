@@ -15,6 +15,7 @@ export default function DashboardLayout({
           DPE
         </div>
       </header>
+
       <main className="flex gap-4 px-4 pb-4 h-full">
         <aside className="w-full max-w-[280px]">
           <Nav.Root>
@@ -25,7 +26,7 @@ export default function DashboardLayout({
                   <Nav.SubmenuContent>
                     {link.children.map((subLink) => (
                       <Nav.Link
-                        key={subLink.name}
+                        key={`${link.name}__${subLink.name}`}
                         icon={subLink.Icon}
                         href={subLink.href}
                       >
