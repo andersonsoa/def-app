@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TableVirtuoso } from "react-virtuoso";
 
 export default function ProcessarPage() {
@@ -10,6 +10,7 @@ export default function ProcessarPage() {
 
   const [parsedCsv, setParsedCsv] = useState<Record<string, string>[]>([]);
   const [csvHeader, setCsvHeader] = useState<string[]>([]);
+  const [percent, setPercent] = useState(0);
 
   useEffect(() => {
     workerRef.current = new Worker(new URL("./worker.js", import.meta.url), {
@@ -24,6 +25,10 @@ export default function ProcessarPage() {
       if (data.type === "line") {
         setParsedCsv((c) => [...c, data.line]);
       }
+
+      if (data.type === "updateProcessedPercent") {
+        setPercent(data.percent);
+      }
     });
 
     return () => {
@@ -35,6 +40,7 @@ export default function ProcessarPage() {
     const files = fileRef.current?.files;
     if (files) {
       setParsedCsv([]);
+      setPercent(0);
       workerRef.current?.postMessage({
         type: "start",
         file: files[0],
@@ -58,7 +64,7 @@ export default function ProcessarPage() {
         />
       </label>
 
-      <progress className="w-full" value={0} max={100}></progress>
+      <progress className="w-full" value={percent} max="100"></progress>
 
       <button
         className="h-10 bg-zinc-300 hover:bg-zinc-400"
@@ -67,40 +73,35 @@ export default function ProcessarPage() {
         Processar
       </button>
 
-      {parsedCsv.length !== 0 ? (
-        <TableVirtuoso
-          style={{ height: "100%" }}
-          data={parsedCsv}
-          components={{
-            Table: (args) => <table className="w-full bg-zinc-300" {...args} />,
-            TableHead: ({ style, ...rest }) => (
-              <thead {...rest} style={style} />
-            ),
-          }}
-          fixedHeaderContent={() => (
-            <tr className="bg-black text-white">
-              {csvHeader.map((h, idx) => (
-                <th
-                  key={idx + "header"}
-                  align="center"
-                  className={idx === 0 ? "w-[160px] p-2" : "p-2"}
-                >
-                  {h}
-                </th>
-              ))}
-            </tr>
-          )}
-          itemContent={(idx, field) => (
-            <>
-              {Object.values(field).map((f, idx) => (
-                <td align="center" className="p-2" key={f + idx}>
-                  {f}
-                </td>
-              ))}
-            </>
-          )}
-        />
-      ) : null}
+      <TableVirtuoso
+        style={{ height: "100%" }}
+        data={parsedCsv}
+        components={{
+          Table: (args) => <table className="w-full bg-zinc-300" {...args} />,
+        }}
+        fixedHeaderContent={() => (
+          <tr className="bg-black text-white">
+            {csvHeader.map((h, idx) => (
+              <th
+                key={idx + "header"}
+                align="center"
+                className={idx === 0 ? "w-[160px] p-2" : "p-2"}
+              >
+                {h}
+              </th>
+            ))}
+          </tr>
+        )}
+        itemContent={(idx, field) => (
+          <>
+            {Object.values(field).map((f, idx) => (
+              <td align="center" className="p-2" key={f + idx}>
+                {f}
+              </td>
+            ))}
+          </>
+        )}
+      />
     </div>
   );
 }

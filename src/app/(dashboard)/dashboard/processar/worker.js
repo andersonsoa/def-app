@@ -1,16 +1,25 @@
 console.log("initilizing worker");
 
-onmessage = ({ data }) => {
+onmessage = async ({ data }) => {
   if (data.type === "start") {
     let header = [];
     let total = 0;
+    let totalSize = (await data.file.text()).length;
+    let currentSize = 0;
+
     data.file
       .stream()
       .pipeThrough(new TextDecoderStream())
       .pipeThrough(
         new TransformStream({
           transform(chunk, controller) {
+            currentSize += chunk.length;
             const lines = chunk.trimEnd().split("\n");
+
+            postMessage({
+              type: "updateProcessedPercent",
+              percent: (currentSize / totalSize) * 100,
+            });
 
             for (const lineIdx in lines) {
               if (total === 0) {
