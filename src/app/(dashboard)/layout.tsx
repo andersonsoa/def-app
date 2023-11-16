@@ -2,6 +2,7 @@
 
 import { links } from "@/lib/links";
 import { Nav } from "@/components/Nav";
+import { Suspense } from "react";
 
 export default function DashboardLayout({
   children,
@@ -44,7 +45,7 @@ export default function DashboardLayout({
           </Nav.Root>
         </aside>
 
-        {children}
+        <Suspense fallback={"..."}>{children}</Suspense>
       </main>
     </section>
   );

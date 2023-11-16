@@ -7,7 +7,7 @@ import { z } from "zod";
 
 import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
-import { useEffect, useRef } from "react";
+import { Checkbox } from "@/components/Checkbox";
 
 const schema = z.object({
   email: z.string().email("Email incorreto"),
@@ -94,7 +94,7 @@ export function CreateUserForm() {
       <Input
         label="Senha"
         placeholder="****"
-        type="text"
+        type="password"
         errorMessage={errors?.password?.message}
         {...register("password")}
       />
@@ -142,20 +142,11 @@ export function CreateUserForm() {
         <p className="text-xs text-zinc-500 mb-1 uppercase">Niveis de Acesso</p>
 
         <div className="flex gap-4">
-          <label className="flex items-center gap-2">
-            <span className="text-sm">Administrador</span>
-            <input type="checkbox" value={1} {...register("roles")} />
-          </label>
+          <Checkbox label="Administrador" value={1} {...register("roles")} />
 
-          <label className="flex items-center gap-2">
-            <span className="text-sm">Servidor</span>
-            <input type="checkbox" value={2} {...register("roles")} />
-          </label>
+          <Checkbox label="Servidor" value={2} {...register("roles")} />
 
-          <label className="flex items-center gap-2">
-            <span className="text-sm">Estagiario</span>
-            <input type="checkbox" value={3} {...register("roles")} />
-          </label>
+          <Checkbox label="Estagiario" value={3} {...register("roles")} />
         </div>
 
         <span className="text-xs text-red-500">{errors.roles?.message}</span>
