@@ -6,7 +6,6 @@ import { MoreHorizontal } from "lucide-react";
 export type User = {
   id: number;
   name: string;
-  username: string;
   email: string;
 };
 
@@ -20,17 +19,12 @@ export const columns: ColumnDef<User>[] = [
     header: "Nome",
   },
   {
-    accessorKey: "username",
-    header: "Username",
-  },
-  {
     accessorKey: "email",
     header: "E-Mail",
   },
   {
-    accessorKey: "action",
-    header: "",
-    cell({ row, cell }) {
+    id: "action",
+    cell({ row }) {
       return (
         <button
           onClick={() => {

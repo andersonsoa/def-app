@@ -1,20 +1,18 @@
 import { User, columns } from "@/app/(dashboard)/dashboard/users/columns";
 import { DataTable } from "@/app/(dashboard)/dashboard/users/data-table";
+import { sampleData } from "@/app/(dashboard)/dashboard/users/sample-data";
 import { PageContainer } from "@/components/PageContainer";
 
-async function getUsers<T>() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/users");
-  const data = await response.json();
-
-  return new Promise<T>((resolve) => {
+async function getUsers() {
+  return new Promise<User[]>((resolve) => {
     setTimeout(() => {
-      resolve(data);
-    }, 2000);
+      resolve(sampleData);
+    }, 300);
   });
 }
 
 export default async function UsersPage() {
-  const users = await getUsers<User[]>();
+  const users = await getUsers();
 
   return (
     <PageContainer>
