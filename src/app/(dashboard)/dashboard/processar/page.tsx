@@ -64,7 +64,7 @@ export default function ProcessarPage() {
         />
       </label>
 
-      <progress className="w-full" value={percent} max="100"></progress>
+      <progress className="w-full" value={percent} max="100" />
 
       <button
         className="h-10 bg-zinc-300 hover:bg-zinc-400"
@@ -92,7 +92,7 @@ export default function ProcessarPage() {
             ))}
           </tr>
         )}
-        itemContent={(idx, field) => (
+        itemContent={(_, field) => (
           <>
             {Object.values(field).map((f, idx) => (
               <td align="center" className="p-2" key={f + idx}>
