@@ -58,8 +58,8 @@ export function Channel() {
         if (otherPos.y > myPos.y) {
           setDirection((c) => ({
             ...c,
-            bottom: true,
             top: false,
+            bottom: true,
           }));
         }
         if (otherPos.y < myPos.y) {
@@ -69,11 +69,6 @@ export function Channel() {
             bottom: false,
           }));
         }
-
-        console.log({
-          otherPos,
-          myPos,
-        });
       }
     };
 
@@ -110,10 +105,10 @@ export function Channel() {
   return (
     <div
       className={`grid place-items-center w-full border-8 
-      ${direction.top ? "border-t-emerald-400" : "border-transparent"}
-      ${direction.left ? "border-l-emerald-400" : "border-transparent"}
-      ${direction.bottom ? "border-b-emerald-400" : "border-transparent"}
-      ${direction.right ? "border-r-emerald-400" : "border-transparent"}
+      ${direction.top ? "border-t-emerald-400" : "border-t-transparent"}
+      ${direction.left ? "border-l-emerald-400" : "border-l-transparent"}
+      ${direction.bottom ? "border-b-emerald-400" : "border-b-transparent"}
+      ${direction.right ? "border-r-emerald-400" : "border-r-transparent"}
       `}
     >
       <button
